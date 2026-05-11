@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { MapContainer, TileLayer, CircleMarker, Tooltip, useMap } from "react-leaflet";
 import { getAQIColor, getAQILevel } from "../utils/aqiColors";
 
-// This helper component moves the map when center changes
-function MapController({ center, locations }) {
+function MapController({ locations }) {
   const map = useMap();
 
   useEffect(() => {
@@ -14,7 +13,6 @@ function MapController({ center, locations }) {
           [validLoc.coordinates.latitude, validLoc.coordinates.longitude],
           11,
           { duration: 1.5 }
-    
         );
       }
     }
@@ -35,10 +33,8 @@ export default function Map({ center, locations, onMarkerClick, selectedId }) {
         attribution="© OpenStreetMap contributors"
       />
 
-      {/* Auto zoom controller */}
-      <MapController center={center} locations={locations} />
+      <MapController locations={locations} />
 
-      {/* Draw a circle for each location */}
       {locations.map((location) => {
         if (!location.coordinates) return null;
 
@@ -61,7 +57,10 @@ export default function Map({ center, locations, onMarkerClick, selectedId }) {
               weight: isSelected ? 3 : 1,
             }}
             eventHandlers={{
-              click: () => onMarkerClick(location),
+              click: (e) => {
+                e.originalEvent.stopPropagation();
+                onMarkerClick(location);
+              },
             }}
           >
             <Tooltip direction="top" offset={[0, -10]}>

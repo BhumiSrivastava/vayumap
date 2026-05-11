@@ -42,13 +42,14 @@ export default function SearchBar({ onSearch, loading }) {
           style={{
             padding: "8px 14px",
             borderRadius: "8px",
-            border: "1px solid rgba(255,255,255,0.2)",
-            background: "rgba(255,255,255,0.1)",
-            color: "#fff",
+            border: "1px solid rgba(255,255,255,0.15)",
+            background: "rgba(255,255,255,0.07)",
+            color: "#f1f5f9",
             fontSize: "14px",
             outline: "none",
             width: "260px",
-          }}
+            fontFamily: "Inter, sans-serif",
+        }}
         />
         <button
           type="submit"
